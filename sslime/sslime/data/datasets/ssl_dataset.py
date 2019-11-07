@@ -28,7 +28,7 @@ class GenericSSLDataset(Dataset):
         for source, path in zip(cfg[split].DATA_SOURCES, cfg[split].DATA_PATHS):
             self.data_objs.append(DATASET_SOURCE_MAP[source](path, split))
 
-        if cfg[split].LABEL_PATHS is not None:
+        if cfg[split].LABEL_PATHS != []:
             assert len(cfg[split].LABEL_SOURCES) == len(
                 cfg[split].LABEL_PATHS
             ), "Mismatch between length of label_sources and label paths provided"
