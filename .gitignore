@@ -1,2 +1,5 @@
 
 *.gz
+*.png
+*.npy
+*.bin

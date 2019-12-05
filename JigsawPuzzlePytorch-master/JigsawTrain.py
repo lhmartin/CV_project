@@ -53,20 +53,22 @@ def main():
     print('Process number: %d'%(os.getpid()))
     
     ## DataLoader initialize ILSVRC2012_train_processed
-    trainpath = args.data+'/ILSVRC2012_img_train'
+    trainpath = args.data+'/train'
     if os.path.exists(trainpath+'_255x255'):
         trainpath += '_255x255'
-    train_data = DataLoader(trainpath,args.data+'/ilsvrc12_train.txt',
+
+    train_data = DataLoader(trainpath, args.data+'/train.txt',
                             classes=args.classes)
+
     train_loader = torch.utils.data.DataLoader(dataset=train_data,
                                             batch_size=args.batch,
                                             shuffle=True,
                                             num_workers=args.cores)
     
-    valpath = args.data+'/ILSVRC2012_img_val'
+    valpath = args.data+'/test'
     if os.path.exists(valpath+'_255x255'):
         valpath += '_255x255'
-    val_data = DataLoader(valpath, args.data+'/ilsvrc12_val.txt',
+    val_data = DataLoader(valpath, args.data+'/test.txt',
                             classes=args.classes)
     val_loader = torch.utils.data.DataLoader(dataset=val_data,
                                             batch_size=args.batch,
@@ -161,7 +163,8 @@ def main():
                 logger.scalar_summary('loss', loss, steps)
                 
                 original = [im[0] for im in original]
-                imgs = np.zeros([9,75,75,3])
+                size = 25
+                imgs = np.zeros([9,size,size,3])
                 for ti, img in enumerate(original):
                     img = img.numpy()
                     imgs[ti] = np.stack([(im-im.min())/(im.max()-im.min()) 

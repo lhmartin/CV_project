@@ -1,4 +1,4 @@
-IMAGENET_FOLD=path_to_ILSVRC2012_img
+IMAGENET_FOLD=../sslime/extra_scripts/data
 
 GPU=${1} # gpu used
 CHECKPOINTS_FOLD=${2} #path_to_output_folder
