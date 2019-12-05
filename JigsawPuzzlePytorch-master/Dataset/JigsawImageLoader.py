@@ -74,7 +74,7 @@ class DataLoader(data.Dataset):
         labels = []
         for row in images_list:
             row = row.split(' ')
-            file_names.append(row[0])
+            file_names.append(row[0] + '.png')
             labels.append(int(row[1]))
 
         return file_names, labels
