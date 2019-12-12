@@ -8,6 +8,7 @@ import os, sys, numpy as np
 import argparse
 from time import time
 from tqdm import tqdm
+from PIL import Image
 
 import tensorflow # needs to call tensorflow before torch, otherwise crush
 sys.path.append('Utils')
@@ -56,12 +57,11 @@ def main():
     trainpath = args.data+'/train'
     if os.path.exists(trainpath+'_255x255'):
         trainpath += '_255x255'
-
-    print(trainpath)
-    print(args.data)
     
     train_data = DataLoader(trainpath, args.data+'/train.txt',
                             classes=args.classes)
+    
+    print(len(train_data))
 
     train_loader = torch.utils.data.DataLoader(dataset=train_data,
                                             batch_size=args.batch,
@@ -73,6 +73,10 @@ def main():
         valpath += '_255x255'
     val_data = DataLoader(valpath, args.data+'/test.txt',
                             classes=args.classes)
+    
+    print(len(val_data))
+    
+    
     val_loader = torch.utils.data.DataLoader(dataset=val_data,
                                             batch_size=args.batch,
                                             shuffle=True,
@@ -168,14 +172,13 @@ def main():
                 logger.scalar_summary('loss', loss, steps)
                 
                 original = [im[0] for im in original]
-                size = 25
-                imgs = np.zeros([9,size,size,3])
+                imgs = np.zeros([9,75,75,3])
                 for ti, img in enumerate(original):
                     img = img.numpy()
                     imgs[ti] = np.stack([(im-im.min())/(im.max()-im.min()) 
                                          for im in img],axis=2)
-                
-                logger.image_summary('input', imgs, steps)
+        
+                #logger.image_summary("input", imgs, steps)
 
             steps += 1
 
@@ -204,7 +207,7 @@ def test(net,criterion,logger,val_loader,steps):
         outputs = outputs.cpu().data
 
         prec1, prec5 = compute_accuracy(outputs, labels, topk=(1, 5))
-        accuracy.append(prec1[0])
+        accuracy.append(prec1.item())
 
     if logger is not None:
         logger.scalar_summary('accuracy', np.mean(accuracy), steps)
