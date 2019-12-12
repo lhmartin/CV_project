@@ -1,0 +1,96 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@lhmartin 
+0
+123luke-97/fair-sslime 
+forked from facebookresearch/fair-sslime
+ Code Pull requests 0 Actions
+ ZenHub Projects 0 Security Insights
+fair-sslime/extra_scripts/unsupervised_vgg_a_rotation_stl_10.yaml
+@luke-97 luke-97 'None' error fix
+c603a43 on 19 Oct
+@luke-97@srikarym
+65 lines (57 sloc)  1.42 KB
+  
+TRAIN:
+  DATA_SOURCES: [disk]
+  DATA_PATHS: [ "path/to/unsupervised_train_images.npy"]
+  LABEL_SOURCES: [disk]
+  LABEL_PATHS: []
+  BATCH_SIZE: 256
+  MMAP_MODE: True
+  DEFAULT_GRAY_IMG_SIZE: 96
+  TRANSFORMS: [
+      ["JigSawTransform"],
+      ["ToTensor"],
+      ["Normalize", {"args": [[0.44671062, 0.43980984, 0.40664645], [0.26034098, 0.25657727, 0.27126738]]}],
+  ]
+
+TEST:
+  DATA_SOURCES: [disk]
+  DATA_PATHS: ["path/to/unsupervised_test_images.npy"]
+  LABEL_SOURCES: [disk]
+  LABEL_PATHS: [] 
+  BATCH_SIZE: 128
+  MMAP_MODE: True
+  DEFAULT_GRAY_IMG_SIZE: 96
+  TRANSFORMS: [
+    ["JigSawTransform"],
+    ["ToTensor"],
+    ["Normalize", {"args": [[0.44671062, 0.43980984, 0.40664645], [0.26034098, 0.25657727, 0.27126738]]}],
+  ]
+
+
+MODEL:
+  TRUNK:
+    TYPE: "vgg_a"
+  HEAD:
+    PARAMS: [["eval_mlp", {"in_channels": 512, "dims": [4608, 4]}]]
+    APPLY_BATCHNORM: True
+  FEATURE_EVAL_MODE: False
+  EVAL_FEATURES: []
+
+# Training Parameters
+TRAINER:
+  TRAIN_LOOP: "generic_train_loop"
+  TRAIN_METERS: {"accuracy": {"topk": [1]}, "loss": {}}
+  EVAL_LOOP: "generic_eval_loop"
+  EVAL_METERS: {"accuracy": {"topk": [1]}, "loss": {}}
+  MAX_EPOCHS: 30
+  NUM_WORKERS: 20
+
+OPTIMIZER:
+  TYPE: "sgd"
+  BASE_LR: 0.1
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 0.0001
+  DAMPENING: 0
+  NESTEROV: True
+
+SCHEDULER:
+  TYPE: "step"
+  STEP_SIZE: 25
+  GAMMA: 0.1
+
+CHECKPOINT:
+  DIR: "./checkpoint_unsupervised_training"
+
+VERBOSE: True
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
