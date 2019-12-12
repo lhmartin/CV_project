@@ -13,11 +13,15 @@ import torch
 from PIL import Image
 from random import shuffle
 
+img_max = 96
+tile = 25
+puzzle_full = 75
+
 def load_image(path,permutations,image_transformer,augment_tile):
     img = Image.open(path).convert('RGB')
     img = image_transformer(img)
     
-    a = 75/2
+    a = tile/2
     tiles = [None] * 9
     for n in range(9):
         i = n/3
@@ -50,11 +54,11 @@ class DataLoader():
         self.permutations = self.__retrive_permutations(classes)
 
         self.__image_transformer = transforms.Compose([
-                            transforms.Resize(256,Image.BILINEAR),
-                            transforms.CenterCrop(225)])
+                            transforms.Resize(img_max,Image.BILINEAR),
+                            transforms.CenterCrop(img_max - 1)])
         self.__augment_tile = transforms.Compose([
                     transforms.RandomCrop(64),
-                    transforms.Resize((75,75)),
+                    transforms.Resize((tile,tile)),
                     transforms.Lambda(rgb_jittering),
                     transforms.ToTensor(),
                     transforms.Normalize(mean=[0.485, 0.456, 0.406],

@@ -57,6 +57,9 @@ def main():
     if os.path.exists(trainpath+'_255x255'):
         trainpath += '_255x255'
 
+    print(trainpath)
+    print(args.data)
+    
     train_data = DataLoader(trainpath, args.data+'/train.txt',
                             classes=args.classes)
 
@@ -127,11 +130,13 @@ def main():
         end = time()
         for i, (images, labels, original) in enumerate(train_loader):
             batch_time.append(time()-end)
+            
             if len(batch_time)>100:
                 del batch_time[0]
             
             images = Variable(images)
             labels = Variable(labels)
+            
             if args.gpu is not None:
                 images = images.cuda()
                 labels = labels.cuda()
@@ -145,7 +150,7 @@ def main():
                 del net_time[0]
             
             prec1, prec5 = compute_accuracy(outputs.cpu().data, labels.cpu().data, topk=(1, 5))
-            acc = prec1[0]
+            acc = prec1.item()
 
             loss = criterion(outputs, labels)
             loss.backward()

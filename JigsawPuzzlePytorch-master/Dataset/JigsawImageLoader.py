@@ -11,6 +11,10 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 
+img_max = 96
+tile = 25
+puzzle_full = 75
+
 class DataLoader(data.Dataset):
     def __init__(self, data_path, txt_list, classes=1000):
         self.data_path = data_path
@@ -19,11 +23,11 @@ class DataLoader(data.Dataset):
         self.permutations = self.__retrive_permutations(classes)
 
         self.__image_transformer = transforms.Compose([
-            transforms.Resize(256, Image.BILINEAR),
-            transforms.CenterCrop(255)])
+            transforms.Resize(img_max, Image.BILINEAR),
+            transforms.CenterCrop(img_max - 1)])
         self.__augment_tile = transforms.Compose([
-            transforms.RandomCrop(64),
-            transforms.Resize((75, 75), Image.BILINEAR),
+            transforms.RandomCrop(tile - 4),
+            transforms.Resize((25, 25), Image.BILINEAR),
             transforms.Lambda(rgb_jittering),
             transforms.ToTensor(),
             # transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -34,15 +38,18 @@ class DataLoader(data.Dataset):
         framename = self.data_path + '/' + self.names[index]
 
         img = Image.open(framename).convert('RGB')
+        
         if np.random.rand() < 0.30:
             img = img.convert('LA').convert('RGB')
 
-        if img.size[0] != 255:
+        if img.size[0] != img_max:
             img = self.__image_transformer(img)
 
         s = float(img.size[0]) / 3
+        print(s)
         a = s / 2
         tiles = [None] * 9
+        
         for n in range(9):
             i = n / 3
             j = n % 3
@@ -69,7 +76,7 @@ class DataLoader(data.Dataset):
     def __dataset_info(self, txt_labels):
         with open(txt_labels, 'r') as f:
             images_list = f.readlines()
-
+        
         file_names = []
         labels = []
         for row in images_list:
@@ -92,6 +99,6 @@ def rgb_jittering(im):
     im = np.array(im, 'int32')
     for ch in range(3):
         im[:, :, ch] += np.random.randint(-2, 2)
-    im[im > 255] = 255
+    im[im > img_max] = img_max
     im[im < 0] = 0
     return im.astype('uint8')
