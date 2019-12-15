@@ -35,8 +35,13 @@ parser.add_argument('--batch', default=256, type=int, help='batch size')
 parser.add_argument('--checkpoint', default='checkpoints/', type=str, help='checkpoint folder')
 parser.add_argument('--lr', default=0.001, type=float, help='learning rate for SGD optimizer')
 parser.add_argument('--cores', default=0, type=int, help='number of CPU core for loading')
+parser.add_argument('--rot', default=0, type=int, help='turning rotation on or off')
+parser.add_argument('--jig', default=1, type=int, help='turning jigsaw on or off')
+parser.add_argument('--load', default=0, type=int, help='Loading from previous model')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
                     help='evaluate model on validation set, No training')
+
+
 args = parser.parse_args()
 
 #from ImageDataLoader import DataLoader
@@ -71,11 +76,8 @@ def main():
     valpath = args.data+'/test'
     if os.path.exists(valpath+'_255x255'):
         valpath += '_255x255'
-    val_data = DataLoader(valpath, args.data+'/test.txt',
+    val_data = DataLoader(valpath, args.data+'/test.txt', rot = args.rot,
                             classes=args.classes)
-    
-    print(len(val_data))
-    
     
     val_loader = torch.utils.data.DataLoader(dataset=val_data,
                                             batch_size=args.batch,
@@ -92,7 +94,7 @@ def main():
         net.cuda()
     
     ############## Load from checkpoint if exists, otherwise from model ###############
-    if os.path.exists(args.checkpoint):
+    if args.load:
         files = [f for f in os.listdir(args.checkpoint) if 'pth' in f]
         if len(files)>0:
             files.sort()

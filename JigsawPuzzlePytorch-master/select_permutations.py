@@ -16,15 +16,28 @@ parser.add_argument('--classes', default=1000, type=int,
                     help='Number of permutations to select')
 parser.add_argument('--selection', default='max', type=str, 
         help='Sample selected per iteration based on hamming distance: [max] highest; [mean] average')
+parser.add_argument('--rot', default=0, type=int, 
+        help='Include rotation in the permutations')
 args = parser.parse_args()
 
 if __name__ == "__main__":
-    outname = 'permutations/permutations_hamming_%s_%d'%(args.selection,args.classes)
+    rot = args.rot
+    classes = args.classes
+   
+        
+    outname = 'permutations/permutations_hamming_%s_%d'%(args.selection,classes)
     
+    if(rot == 1):
+        outname = 'permutations/permutations_rot_hamming_%s_%d'%(args.selection,classes)
+        if( classes % 4 != 0):
+            print("Setting classes to closest multiple of 4")
+        classes /= 4
+        
+        
     P_hat = np.array(list(itertools.permutations(list(range(9)), 9)))
     n = P_hat.shape[0]
     
-    for i in trange(args.classes):
+    for i in trange(int(classes)):
         if i==0:
             j = np.random.randint(n)
             P = np.array(P_hat[j]).reshape([1,-1])
@@ -43,6 +56,13 @@ if __name__ == "__main__":
         
         if i%100==0:
             np.save(outname,P)
+    
+    if(rot == 1):
+       
+        P_new = np.repeat(P.copy(), 4, axis=0) 
+        end = np.reshape(np.array([0, 1, 2, 3] * (len(P))), (4*len(P), 1))
+   
+        P = np.append(P_new, end, axis=1)
     
     np.save(outname,P)
     print('file created --> '+outname)

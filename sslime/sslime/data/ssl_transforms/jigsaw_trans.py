@@ -5,67 +5,95 @@ import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
 from PIL import Image
+import torchvision.transforms.functional as TF
 
-
-img_max = 96
-tile = 25
-puzzle_full = 75
 
 class JIG_SAW_TRANS(object):
-    def __init__(self, data_path, txt_list, classes=1000):
+
+    def __init__(self, data_path, txt_list, classes=1000, rot = 0):
+        self.rot = rot
         self.data_path = data_path
         self.names, _ = self.__dataset_info(txt_list)
         self.N = len(self.names)
         self.permutations = self.__retrive_permutations(classes)
 
         self.__image_transformer = transforms.Compose([
-            transforms.Resize(img_max, Image.BILINEAR),
-            transforms.CenterCrop(img_max - 1)])
+            transforms.Resize(256, Image.BILINEAR),
+            transforms.CenterCrop(255)])
         self.__augment_tile = transforms.Compose([
-            transforms.RandomCrop(tile - 4),
-            transforms.Resize((25, 25), Image.BILINEAR),
+            transforms.RandomCrop(64),
+            transforms.Resize((75, 75), Image.BILINEAR),
             transforms.Lambda(rgb_jittering),
             transforms.ToTensor(),
             # transforms.Normalize(mean=[0.485, 0.456, 0.406],
             # std =[0.229, 0.224, 0.225])
         ])
 
+    #def __getitem__(self, index):
     def __call__(self, sample):
-      
-        img = sample
+        framename = self.data_path + '/' + self.names[index]
+       
+        order = np.random.randint(len(self.permutations))
+        
+        img = sample.convert('RGB')
         
         if np.random.rand() < 0.30:
             img = img.convert('LA').convert('RGB')
 
-        if img.size[0] != img_max:
+        if img.size[0] != 255:
             img = self.__image_transformer(img)
 
         s = float(img.size[0]) / 3
         a = s / 2
-        tiles = [None] * 9
+        tiles = [None] * 9  
+        orig_tiles = [None] * 9  
         
+        data, labels = [], []
+        
+        orig_img = img
+        
+        if(self.rot == 1):
+            #print(self.permutations[order])
+            #print("ROTATO POTATO")
+            #print("Rotation num = ", self.permutations[order][9])
+            #print("ANGLE = ", self.angles[int(self.permutations[order][9])])
+            img = TF.rotate(img, self.angles[int(self.permutations[order][9])])
+        
+            
         for n in range(9):
             i = n / 3
             j = n % 3
             c = [a * i * 2 + a, a * j * 2 + a]
             c = np.array([c[1] - a, c[0] - a, c[1] + a + 1, c[0] + a + 1]).astype(int)
+           
             tile = img.crop(c.tolist())
+            orig_tile = orig_img.crop(c.tolist())
+            
             tile = self.__augment_tile(tile)
+            orig_tile = self.__augment_tile(orig_tile)
+                
             # Normalize the patches indipendently to avoid low level features shortcut
             m, s = tile.view(3, -1).mean(dim=1).numpy(), tile.view(3, -1).std(dim=1).numpy()
             s[s == 0] = 1
             norm = transforms.Normalize(mean=m.tolist(), std=s.tolist())
             tile = norm(tile)
             tiles[n] = tile
+            orig_tiles[n] = norm(orig_tile)
+        
+        #print(tiles)
 
-        order = np.random.randint(len(self.permutations))
-        data = [tiles[self.permutations[order][t]] for t in range(9)]
+        # NEED TO SAMPLE THIS BEFORE ROTATION TO DETERMINE THE ROTATION
+        # MAYBE KEEP THE PERMUTATIONS IN TWO 
+        # ie: self.per[order]["ROT"] has the angle
+        # self.per[order]["PUZ"] has the puzzle pieces
+        # Which means using the same code is possible 
+        
+        data = [tiles[int(self.permutations[order][t])] for t in range(9)]
         data = torch.stack(data, 0)
+       
 
-        rtn["data"] = data
-        rtn["label"] = int(order)
+        return data, int(order), orig_tiles
 
-        return rtn
 
     def __len__(self):
         return len(self.names)
@@ -73,18 +101,23 @@ class JIG_SAW_TRANS(object):
     def __dataset_info(self, txt_labels):
         with open(txt_labels, 'r') as f:
             images_list = f.readlines()
-        
+
         file_names = []
         labels = []
+        
         for row in images_list:
-            row = row.split(' ')
-            file_names.append(row[0] + '.png')
-            labels.append(int(row[1]))
+            row = row.split('\n')
+            file_names.append(row[0])
+            labels.append(0)
 
         return file_names, labels
 
     def __retrive_permutations(self, classes):
-        all_perm = np.load('permutations_%d.npy' % (classes))
+        if(self.rot == 1):
+            all_perm = np.load('permutations/permutations_rot_hamming_max_%d.npy' %(classes))
+        else:
+            all_perm = np.load('permutations/permutations_hamming_max_%d.npy' % (classes))
+            
         # from range [1,9] to [0,8]
         if all_perm.min() == 1:
             all_perm = all_perm - 1
@@ -96,6 +129,6 @@ def rgb_jittering(im):
     im = np.array(im, 'int32')
     for ch in range(3):
         im[:, :, ch] += np.random.randint(-2, 2)
-    im[im > img_max] = img_max
+    im[im > 255] = 255
     im[im < 0] = 0
     return im.astype('uint8')
