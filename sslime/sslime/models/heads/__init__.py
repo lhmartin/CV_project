@@ -8,5 +8,6 @@
 
 from sslime.models.heads.evaluation_mlp import Eval_MLP
 from sslime.models.heads.mlp import MLP
+from sslime.models.heads.jig_head import JIG_HEAD
 
-HEADS = {"eval_mlp": Eval_MLP, "mlp": MLP}
+HEADS = {"eval_mlp": Eval_MLP, "mlp": MLP, "jig_head" : JIG_HEAD}

@@ -10,12 +10,12 @@ import torchvision.transforms.functional as TF
 
 class JIG_SAW_TRANS(object):
 
-    def __init__(self, data_path, txt_list, classes=1000, rot = 0):
+    def __init__(self, rot = 0):
+       
+        cls=40
         self.rot = rot
-        self.data_path = data_path
-        self.names, _ = self.__dataset_info(txt_list)
-        self.N = len(self.names)
-        self.permutations = self.__retrive_permutations(classes)
+   
+        self.permutations = self.__retrive_permutations(cls)
 
         self.__image_transformer = transforms.Compose([
             transforms.Resize(256, Image.BILINEAR),
@@ -31,11 +31,12 @@ class JIG_SAW_TRANS(object):
 
     #def __getitem__(self, index):
     def __call__(self, sample):
-        framename = self.data_path + '/' + self.names[index]
+        #framename = self.data_path + '/' + self.names[index]
        
+        #print(sample)
         order = np.random.randint(len(self.permutations))
         
-        img = sample.convert('RGB')
+        img = sample["data"][0].convert('RGB')
         
         if np.random.rand() < 0.30:
             img = img.convert('LA').convert('RGB')
@@ -53,10 +54,6 @@ class JIG_SAW_TRANS(object):
         orig_img = img
         
         if(self.rot == 1):
-            #print(self.permutations[order])
-            #print("ROTATO POTATO")
-            #print("Rotation num = ", self.permutations[order][9])
-            #print("ANGLE = ", self.angles[int(self.permutations[order][9])])
             img = TF.rotate(img, self.angles[int(self.permutations[order][9])])
         
             
@@ -80,19 +77,13 @@ class JIG_SAW_TRANS(object):
             tiles[n] = tile
             orig_tiles[n] = norm(orig_tile)
         
-        #print(tiles)
-
-        # NEED TO SAMPLE THIS BEFORE ROTATION TO DETERMINE THE ROTATION
-        # MAYBE KEEP THE PERMUTATIONS IN TWO 
-        # ie: self.per[order]["ROT"] has the angle
-        # self.per[order]["PUZ"] has the puzzle pieces
-        # Which means using the same code is possible 
-        
         data = [tiles[int(self.permutations[order][t])] for t in range(9)]
         data = torch.stack(data, 0)
-       
+        
+        sample["data"] = [data]
+        sample["label"] = [int(order)]
 
-        return data, int(order), orig_tiles
+        return sample
 
 
     def __len__(self):
@@ -113,6 +104,7 @@ class JIG_SAW_TRANS(object):
         return file_names, labels
 
     def __retrive_permutations(self, classes):
+
         if(self.rot == 1):
             all_perm = np.load('permutations/permutations_rot_hamming_max_%d.npy' %(classes))
         else:

@@ -1,6 +1,7 @@
 import torch.nn as nn
 from sslime.models.Layers import LRN
 from sslime.utils.utils import Flatten, parse_out_keys_arg
+from torch import cat
 
 
 class ROT_JIG(nn.Module):
@@ -28,34 +29,33 @@ class ROT_JIG(nn.Module):
         self.conv.add_module('relu5_s1',nn.ReLU(inplace=True))
         self.conv.add_module('pool5_s1',nn.MaxPool2d(kernel_size=3, stride=2))
 
-        self.fc6 = nn.Sequential()
-        self.fc6.add_module('fc6_s1',nn.Linear(256, 1024))
-        self.fc6.add_module('relu6_s1',nn.ReLU(inplace=True))
-        self.fc6.add_module('drop6_s1',nn.Dropout(p=0.5))
+        #self.fc6 = nn.Sequential()
+        #self.fc6.add_module('fc6_s1',nn.Linear(256*9, 1024))
+        #self.fc6.add_module('relu6_s1',nn.ReLU(inplace=True))
+        #self.fc6.add_module('drop6_s1',nn.Dropout(p=0.5))
+#
+        #self.fc7 = nn.Sequential()
+        #self.fc7.add_module('fc7',nn.Linear(9*1024,4096))
+        #self.fc7.add_module('relu7',nn.ReLU(inplace=True))
+        #self.fc7.add_module('drop7',nn.Dropout(p=0.5))
+#
+        #self.classifier = nn.Sequential()
+        #self.classifier.add_module('fc8',nn.Linear(4096, classes))
 
-        self.fc7 = nn.Sequential()
-        self.fc7.add_module('fc7',nn.Linear(9*1024,4096))
-        self.fc7.add_module('relu7',nn.ReLU(inplace=True))
-        self.fc7.add_module('drop7',nn.Dropout(p=0.5))
-
-        self.classifier = nn.Sequential()
-        self.classifier.add_module('fc8',nn.Linear(4096, classes))
-
+   
     def forward(self, x):
-        print(x.size())
-        B,C,H,W = x.size()
-#         x = x.transpose(0,1)
+        B,T,C,H,W = x.size()
+        x = x.transpose(0,1)
 
-#         x_list = []
-#         for i in range(9):
-        z = self.conv(x)
-        print(z.size())
-        z = self.fc6(z.view(256,1024))
-        z = z.view([B,1,-1])
-#             x_list.append(z)
+        x_list = []
+        for i in range(9):
+            z = self.conv(x[i])
+            
+            x_list.append(z)
 
-        x = cat(z,1)
-        x = self.fc7(x.view(B,-1))
-        x = self.classifier(x)
+        x = cat(x_list,1)
+        print(x.shape)
 
         return x
+    
+  
