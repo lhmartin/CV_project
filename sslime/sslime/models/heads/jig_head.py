@@ -15,7 +15,7 @@ from torch import cat
 
 class JIG_HEAD(nn.Module):
     def __init__(self, dims):
-        super(JIG_FC6, self).__init__()
+        super(JIG_HEAD, self).__init__()
         
         print(dims)
         

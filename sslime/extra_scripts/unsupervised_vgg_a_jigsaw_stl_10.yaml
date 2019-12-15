@@ -6,9 +6,7 @@ TRAIN:
   BATCH_SIZE: 16
   MMAP_MODE: True
   DEFAULT_GRAY_IMG_SIZE: 96
-  TRANSFORMS: [
-      ["JigSawTransform", { "rot" : 0 }]
-  ]
+  TRANSFORMS: [["JigSawTransform"]]
 
 TEST:
   DATA_SOURCES: [disk]
@@ -18,20 +16,13 @@ TEST:
   BATCH_SIZE: 128
   MMAP_MODE: True
   DEFAULT_GRAY_IMG_SIZE: 96
-  TRANSFORMS: [
-    ["JigSawTransform", {"data_path": "data/test", "txt_list": "data/list_train.txt", "classes" : 1000, "rot" : 0 }]
-  ]
-
-
+  TRANSFORMS: [["JigSawTransform"]]
+   
 MODEL:
   TRUNK:
     TYPE: "rot_jig"
   HEAD:
-    PARAMS: [
-    ["Jig_class", {"dims": [2304, 1024, 9216, 4096, 4096,40]}]
-    ]
-    
-    
+    PARAMS: [["jig_head", {"dims": [2304, 1024, 9216, 4096, 4096,40]}]]
     APPLY_BATCHNORM: True
   FEATURE_EVAL_MODE: False
   EVAL_FEATURES: []
