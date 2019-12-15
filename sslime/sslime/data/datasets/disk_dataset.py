@@ -40,6 +40,7 @@ class DiskImageDataset(Dataset):
         except Exception as e:
             if cfg.VERBOSE:
                 logger.warning(e)
+                print('exception thrown')
             img = get_mean_image(cfg[self.split].DEFAULT_GRAY_IMG_SIZE)
             is_success = False
 

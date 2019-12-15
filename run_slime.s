@@ -5,8 +5,8 @@
 #SBATCH --time=09:00:00
 #SBATCH --mem=50000
 #SBATCH --job-name=slime
-#SBATCH --mail-user=lhm300@nyu.edu
-#SBATCH --output=slurm_outputs/slime_slurm_%j.out
+#SBATCH --mail-user=emt416@nyu.edu
+#SBATCH --output=slime_slurm_%j.out
 
 OPT=$1 
 #command line argument
@@ -20,7 +20,7 @@ conda install -n slime_env nb_conda_kernels
 module list
 # conda activate 
 
-cd /scratch/lhm300/cvProject/CV_project
+cd /scratch/emt416/CV_project/CV_project
 
 
 python sslime/setup.py install
