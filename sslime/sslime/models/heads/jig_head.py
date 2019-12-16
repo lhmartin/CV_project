@@ -33,9 +33,13 @@ class JIG_HEAD(nn.Module):
 
     
     def forward(self, x):
-        B = 1
-        x = x.transpose(0,1)
-        x = x.transpose(1,2)
+        
+        B = x.shape[0]
+        #x = x.view([B,-1])
+
+        x = x.transpose(0,2)
+        x = x.transpose(1,3)
+ 
         x_list = []
         for i in range(3):
             for j in range(3):
@@ -43,7 +47,7 @@ class JIG_HEAD(nn.Module):
                 x_list.append(z)
 
         x = cat(x_list,0)
-        x = self.fc7(x.view(1,-1))
+        x = self.fc7(x.view(B,-1))
         x = self.classifier(x)
         return x
     

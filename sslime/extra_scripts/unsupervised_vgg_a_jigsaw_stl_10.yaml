@@ -3,7 +3,7 @@ TRAIN:
   DATA_PATHS: [ "data/unsupervised_train_images.npy"]
   LABEL_SOURCES: [disk]
   LABEL_PATHS: []
-  BATCH_SIZE: 16
+  BATCH_SIZE: 128
   MMAP_MODE: True
   DEFAULT_GRAY_IMG_SIZE: 96
   TRANSFORMS: [["JigSawTransform", { "rot" : 0 }]]
@@ -13,7 +13,7 @@ TEST:
   DATA_PATHS: ["data/unsupervised_test_images.npy"]
   LABEL_SOURCES: [disk]
   LABEL_PATHS: [] 
-  BATCH_SIZE: 128
+  BATCH_SIZE: 256
   MMAP_MODE: True
   DEFAULT_GRAY_IMG_SIZE: 96
   TRANSFORMS: [["JigSawTransform", { "rot" : 0 }]]
