@@ -54,8 +54,6 @@ class ROT_JIG(nn.Module):
             x_list.append(z)
 
         x = cat(x_list,1)
-        print(x.shape)
-
         return x
     
   

@@ -27,6 +27,7 @@ class BaseImageSSLModel(nn.Module):
 
     def forward(self, batch):
         feats = self.trunk(batch)
+        # here is the dim mismatch i think if you print size(out) ==1 and it should be the batch size
         out = []
         for feat, head in zip(feats, self.clf_heads):
             out.append(head(feat))

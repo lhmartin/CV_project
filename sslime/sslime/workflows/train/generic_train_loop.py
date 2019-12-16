@@ -27,7 +27,9 @@ def generic_train_loop(train_loader, model, criterion, optimizer, scheduler, i_e
     for i_batch, batch in enumerate(tqdm(train_loader)):
         batch["data"] = torch.cat(batch["data"]).cuda()
         batch["label"] = torch.cat(batch["label"]).cuda()
+        
         out = model(batch["data"])
+        
         loss = criterion(out, batch["label"])
         optimizer.zero_grad()
         loss.backward()

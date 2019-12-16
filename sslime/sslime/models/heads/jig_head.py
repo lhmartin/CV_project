@@ -17,8 +17,6 @@ class JIG_HEAD(nn.Module):
     def __init__(self, dims):
         super(JIG_HEAD, self).__init__()
         
-        print(dims)
-        
         self.fc6 = nn.Sequential()
         self.fc6.add_module('fc6_s1',nn.Linear(dims[0], dims[1]))
         self.fc6.add_module('relu6_s1',nn.ReLU(inplace=True))
@@ -41,12 +39,11 @@ class JIG_HEAD(nn.Module):
         x_list = []
         for i in range(3):
             for j in range(3):
-                print(x[i][j].shape)
                 z = self.fc6(x[i][j])
                 x_list.append(z)
 
         x = cat(x_list,0)
-        print("FC6 SHAPE: " , x.size())
         x = self.fc7(x.view(1,-1))
-        return self.classifier(x)
+        x = self.classifier(x)
+        return x
     
