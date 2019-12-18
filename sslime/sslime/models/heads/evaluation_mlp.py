@@ -25,6 +25,7 @@ class Eval_MLP(nn.Module):
         self.clf = MLP(dims)
 
     def forward(self, batch):
+        
         out = self.channel_bn(batch)
         out = torch.flatten(out, start_dim=1)
         out = self.clf(out)

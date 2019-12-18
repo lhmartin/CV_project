@@ -31,17 +31,23 @@ class ROT_JIG(nn.Module):
 
    
     def forward(self, x):
-        B,T,C,H,W = x.size()
-        x = x.transpose(0,1)
+       
+        
 
         x_list = []
-        for i in range(9):
-            z = self.conv(x[i])
-            
-            x_list.append(z)
+        if(len(x.shape) == 5):
+            x = x.transpose(0,1)
+            for i in range(9):
+                z = self.conv(x[i])
 
-        x = cat(x_list,1)
+                x_list.append(z)
+
+            x = cat(x_list,1)
+        else:
+            x = self.conv(x)
        
+    
+        #print(x.shape)
         return [x]
     
   

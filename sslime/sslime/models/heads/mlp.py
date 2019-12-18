@@ -15,6 +15,7 @@ from sslime.core.config import config as cfg
 class MLP(nn.Module):
     def __init__(self, dims):
         super(MLP, self).__init__()
+       
         layers = []
         last_dim = dims[0]
         for dim in dims[1:-1]:
