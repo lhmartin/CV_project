@@ -28,7 +28,7 @@ MODEL:
   TRUNK:
     TYPE: "rot_jig"
     SHOULD_FLATTEN: True
-    
+
   HEAD:
     PARAMS: [
       ["eval_mlp", {"in_channels": 256, "dims": [4096, 10]}]
@@ -60,8 +60,7 @@ SCHEDULER:
   GAMMA: 0.1
 
 CHECKPOINT:
-  DIR: "unsupervised_stl10_jigsaw_rot_40/eval"  
-  FEATURE_EXTRACTOR_PARAMS: "unsupervised_stl10_jigsaw_rot_40/model_epoch_0015.pyth"
+  DIR: "unsupervised_stl10_jigsaw_40/eval"  
+  FEATURE_EXTRACTOR_PARAMS: "unsupervised_stl10_jigsaw_40/model_epoch_0015.pyth"
 
 VERBOSE: True
-

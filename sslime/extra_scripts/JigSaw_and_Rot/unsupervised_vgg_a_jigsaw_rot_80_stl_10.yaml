@@ -12,12 +12,12 @@ TEST:
   DATA_SOURCES: [disk]
   DATA_PATHS: ["data/unsupervised_test_images.npy"]
   LABEL_SOURCES: [disk]
-  LABEL_PATHS: [] 
+  LABEL_PATHS: []
   BATCH_SIZE: 256
   MMAP_MODE: True
   DEFAULT_GRAY_IMG_SIZE: 96
-  TRANSFORMS: [["JigSawTransform_16", { "rot" : 1 }]]
-   
+  TRANSFORMS: [["JigSawTransform_80", { "rot" : 1 }]]
+
 MODEL:
   TRUNK:
     TYPE: "rot_jig"
