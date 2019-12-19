@@ -1,0 +1,2104 @@
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.5.11
+  latest version: 4.8.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+
+# All requested packages already installed.
+
+
+Currently Loaded Modules:
+  1) lcms2/intel/2.8                5) tensorflow/python3.6/1.5.0
+  2) openjpeg/intel/2.1.2           6) anaconda3/5.3.1
+  3) pillow/python3.5/intel/4.2.1   7) cudnn/9.0v7.0.5
+  4) numpy/python3.6/intel/1.14.0   8) cuda/9.0.176
+
+[INFO: config.py:  154]: Training with config:
+[INFO: config.py:  155]: {'CHECKPOINT': {'CHECKPOINT_PERIOD': 1,
+                'DIR': 'unsupervised_stl10_jigsaw_rot_120/eval',
+                'FEATURE_EXTRACTOR_PARAMS': 'unsupervised_stl10_jigsaw_rot_120/model_epoch_0015.pyth'},
+ 'GPU_IDS': [],
+ 'MODEL': {'EVAL_FEATURES': ['pool1', 'pool2', 'pool3', 'pool4', 'pool5'],
+           'FEATURE_EVAL_MODE': False,
+           'HEAD': {'APPLY_BATCHNORM': True,
+                    'BATCHNORM_EPS': 1e-05,
+                    'BATCHNORM_MOMENTUM': 0.1,
+                    'PARAMS': [['eval_mlp',
+                                {'dims': [4096, 10], 'in_channels': 256}]]},
+           'TRUNK': {'LINEAR_FEAT_POOL_OPS': [('AdaptiveMaxPool2d', [12]),
+                                              ('AdaptiveMaxPool2d', [7]),
+                                              ('AdaptiveMaxPool2d', [5]),
+                                              ('AdaptiveMaxPool2d', [6]),
+                                              ('AdaptiveMaxPool2d', [6])],
+                     'SHOULD_FLATTEN': True,
+                     'TYPE': 'rot_jig'}},
+ 'OPTIMIZER': {'BASE_LR': 0.01,
+               'DAMPENING': 0,
+               'MOMENTUM': 0.9,
+               'NESTEROV': True,
+               'REGULARIZE_BATCHNORM': False,
+               'REGULARIZE_BIAS': True,
+               'TYPE': 'sgd',
+               'WEIGHT_DECAY': 0.0005},
+ 'SCHEDULER': {'GAMMA': 0.1, 'STEP_SIZE': 30, 'TYPE': 'step'},
+ 'TEST': {'BATCH_SIZE': 32,
+          'DATA_PATHS': ['data/test_images.npy'],
+          'DATA_SOURCES': ['disk'],
+          'DEFAULT_GRAY_IMG_SIZE': 96,
+          'EVERSTORE_RETRY': 3,
+          'LABEL_PATHS': ['data/test_labels.npy'],
+          'LABEL_SOURCES': ['disk'],
+          'MMAP_MODE': True,
+          'TRANSFORMS': [['ToTensor'],
+                         ['Normalize',
+                          {'args': [[0.44671062, 0.43980984, 0.40664645],
+                                    [0.26034098, 0.25657727, 0.27126738]]}]]},
+ 'TRAIN': {'BATCH_SIZE': 128,
+           'DATA_PATHS': ['data/train_images_0.npy'],
+           'DATA_SOURCES': ['disk'],
+           'DEFAULT_GRAY_IMG_SIZE': 96,
+           'EVERSTORE_RETRY': 3,
+           'LABEL_PATHS': ['data/train_labels_0.npy'],
+           'LABEL_SOURCES': ['disk'],
+           'MMAP_MODE': True,
+           'TRANSFORMS': [['ToTensor'],
+                          ['Normalize',
+                           {'args': [[0.44671062, 0.43980984, 0.40664645],
+                                     [0.26034098, 0.25657727, 0.27126738]]}]]},
+ 'TRAINER': {'AUTO_RESUME': True,
+             'CRITERION': 'cross_entropy_multiple_output_single_target',
+             'EVAL_LOOP': 'generic_eval_loop',
+             'EVAL_METERS': {'accuracy_list': {'num_list': 1, 'topk': [1]},
+                             'loss': {}},
+             'EVAL_MODEL': True,
+             'EVAL_PERIOD': 1,
+             'LOG_ITER_PERIOD': 100,
+             'MAX_EPOCHS': 120,
+             'NUM_WORKERS': 45,
+             'RESET_START_EPOCH': False,
+             'TRAIN_LOOP': 'generic_train_loop',
+             'TRAIN_METERS': {'accuracy_list': {'num_list': 1, 'topk': [1]},
+                              'loss': {}}},
+ 'VERBOSE': True}
+[INFO: generic_trainer.py:   48]: System config:
+PyTorch version: 1.3.1
+Is debug build: No
+CUDA used to build PyTorch: 10.1.243
+
+OS: CentOS Linux release 7.3.1611 (Core) 
+GCC version: (GCC) 4.8.5 20150623 (Red Hat 4.8.5-11)
+CMake version: Could not collect
+
+Python version: 3.6
+Is CUDA available: Yes
+CUDA runtime version: 9.0.176
+GPU models and configuration: GPU 0: Tesla P40
+Nvidia driver version: 418.39
+cuDNN version: Could not collect
+
+Versions of relevant libraries:
+[pip3] numpy==1.15.1
+[pip3] numpydoc==0.8.0
+[conda] blas                      1.0                         mkl  
+[conda] mkl                       2018.0.3                      1  
+[conda] mkl_fft                   1.0.6            py36h7dd41cf_0  
+[conda] mkl_random                1.0.1            py36h4414c95_1  
+[conda] pytorch                   1.3.1           py3.6_cuda10.1.243_cudnn7.6.3_0    pytorch
+[conda] torchvision               0.2.1                      py_2    pytorch
+[INFO: __init__.py:   74]: SGD (
+Parameter Group 0
+    dampening: 0
+    lr: 0.01
+    momentum: 0.9
+    nesterov: True
+    weight_decay: 0.0005
+
+Parameter Group 1
+    dampening: 0
+    lr: 0.01
+    momentum: 0.9
+    nesterov: True
+    weight_decay: 0.0
+)
+[INFO: __init__.py:   75]: Traininable params: 14
+[INFO: __init__.py:   78]: Regularized Parameters: 12. Unregularized Parameters 2
+[INFO: generic_trainer.py:   55]: BaseImageSSLModel(
+  (trunk): ROT_JIG(
+    (conv): Sequential(
+      (conv1_s1): Conv2d(3, 96, kernel_size=(11, 11), stride=(2, 2))
+      (relu1_s1): ReLU(inplace=True)
+      (pool1_s1): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (lrn1_s1): LRN(
+        (average): AvgPool3d(kernel_size=(5, 1, 1), stride=1, padding=(2, 0, 0))
+      )
+      (conv2_s1): Conv2d(96, 256, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=2)
+      (relu2_s1): ReLU(inplace=True)
+      (pool2_s1): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (lrn2_s1): LRN(
+        (average): AvgPool3d(kernel_size=(5, 1, 1), stride=1, padding=(2, 0, 0))
+      )
+      (conv3_s1): Conv2d(256, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (relu3_s1): ReLU(inplace=True)
+      (conv4_s1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2)
+      (relu4_s1): ReLU(inplace=True)
+      (conv5_s1): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2)
+      (relu5_s1): ReLU(inplace=True)
+      (pool5_s1): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
+    )
+  )
+  (clf_heads): ModuleList(
+    (0): Eval_MLP(
+      (channel_bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (clf): MLP(
+        (clf): Sequential(
+          (0): Linear(in_features=4096, out_features=10, bias=True)
+        )
+      )
+    )
+  )
+)
+[INFO: generic_trainer.py:  106]: => Training model...
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:03<00:22,  3.81s/it] 43%|####2     | 3/7 [00:03<00:10,  2.69s/it] 71%|#######1  | 5/7 [00:04<00:03,  1.90s/it]100%|##########| 7/7 [00:04<00:00,  1.35s/it]100%|##########| 7/7 [00:05<00:00,  1.28it/s][INFO: generic_train_loop.py:   47]: Epoch: 1. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.1808035671710968}},
+             'top_1': '18.1'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 2.5710597378867015}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0001.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 1. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.13187499344348907}},
+             'top_1': '13.2'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.3591014308929443}
+[INFO: utils.py:   91]: Epoch Time: 0:00:26.832519, ETA Time: 0:53:39.902315
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 2. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.2723214328289032}},
+             'top_1': '27.2'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 2.141146881239755}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0002.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 2. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.15025000274181366}},
+             'top_1': '15.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.6454272165298462}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.862043, ETA Time: 0:45:18.826479
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.73s/it] 43%|####2     | 3/7 [00:02<00:07,  1.93s/it] 71%|#######1  | 5/7 [00:02<00:02,  1.37s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.57it/s][INFO: generic_train_loop.py:   47]: Epoch: 3. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 0.3515625}},
+             'top_1': '35.2'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.8199881655829293}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0003.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 3. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.31937500834465027}},
+             'top_1': '31.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.802401406288147}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.782244, ETA Time: 0:42:16.087747
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.73s/it] 43%|####2     | 3/7 [00:02<00:07,  1.93s/it] 71%|#######1  | 5/7 [00:02<00:02,  1.37s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.57it/s][INFO: generic_train_loop.py:   47]: Epoch: 4. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.3839285671710968}},
+             'top_1': '38.4'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.7021400758198328}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0004.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 4. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.3531250059604645}},
+             'top_1': '35.3'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.7955353331565858}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.773081, ETA Time: 0:40:35.059222
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 5. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.4241071343421936}},
+             'top_1': '42.4'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.4971945796694075}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0005.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 5. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.3477500081062317}},
+             'top_1': '34.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.7073604021072388}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.894382, ETA Time: 0:39:29.747057
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 6. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.4888392984867096}},
+             'top_1': '48.9'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.4084927354540144}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0006.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 6. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.40825000405311584}},
+             'top_1': '40.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.6095349426269532}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.803579, ETA Time: 0:38:38.167097
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 7. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.5446428656578064}},
+             'top_1': '54.5'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.2408101728984289}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0007.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 7. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.37024998664855957}},
+             'top_1': '37.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.7132389349937438}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.906543, ETA Time: 0:37:57.628663
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 8. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.5982142686843872}},
+             'top_1': '59.8'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 1.0680276496069772}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0008.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 8. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.3252499997615814}},
+             'top_1': '32.5'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9068215370178223}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.876172, ETA Time: 0:37:22.069211
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 9. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.6417410969734192}},
+             'top_1': '64.2'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.9592727252415248}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0009.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 9. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.29912498593330383}},
+             'top_1': '29.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9909292969703674}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.826033, ETA Time: 0:36:49.593207
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 10. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.6183035969734192}},
+             'top_1': '61.8'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.9997220124517169}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0010.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 10. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.39787501096725464}},
+             'top_1': '39.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.8762809233665467}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.936256, ETA Time: 0:36:21.070673
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.74s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 11. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.7243303656578064}},
+             'top_1': '72.4'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.7767174754823957}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0011.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 11. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.3362500071525574}},
+             'top_1': '33.6'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.086709348201752}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.811204, ETA Time: 0:35:53.040574
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 12. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.7790178656578064}},
+             'top_1': '77.9'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.6306574514933995}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0012.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 12. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.35737499594688416}},
+             'top_1': '35.7'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.271461711883545}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.742105, ETA Time: 0:35:25.919304
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 13. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.8392857313156128}},
+             'top_1': '83.9'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.496346971818379}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0013.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 13. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.3812499940395355}},
+             'top_1': '38.1'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0731679306030273}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.810830, ETA Time: 0:35:00.658085
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 14. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.8816964030265808}},
+             'top_1': '88.2'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.40359299523489817}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0014.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 14. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.40149998664855957}},
+             'top_1': '40.1'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0289907746315}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.747495, ETA Time: 0:34:35.834293
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 15. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.9363839030265808}},
+             'top_1': '93.6'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.26181713385241373}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0015.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 15. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.4401249885559082}},
+             'top_1': '44.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.7992494602203368}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.876835, ETA Time: 0:34:12.734678
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 16. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.9564732313156128}},
+             'top_1': '95.6'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.17525729749883925}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0016.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 16. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.4338749945163727}},
+             'top_1': '43.4'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9158600087165834}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.633116, ETA Time: 0:33:55.126004
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 17. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.9810267686843872}},
+             'top_1': '98.1'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.11166068698678698}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0017.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 17. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.48387500643730164}},
+             'top_1': '48.4'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9131076741218567}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.802343, ETA Time: 0:33:32.196780
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 18. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([896.]),
+                  'val': {'top_1': 0.9933035969734192}},
+             'top_1': '99.3'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.06741755029984883}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0018.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 18. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.4818750023841858}},
+             'top_1': '48.2'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.8095527377128602}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.769232, ETA Time: 0:33:09.536630
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 19. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.026529322245291302}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0019.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 19. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.4871250092983246}},
+             'top_1': '48.7'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.8361100115776061}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.966023, ETA Time: 0:32:48.342511
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.72s/it] 43%|####2     | 3/7 [00:02<00:07,  1.93s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.37s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 20. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.013602847499506814}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0020.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 20. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.4957500100135803}},
+             'top_1': '49.6'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.923474428653717}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.948472, ETA Time: 0:32:27.282568
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 21. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.007752949638026101}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0021.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 21. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5042499899864197}},
+             'top_1': '50.4'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.8924947075843812}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.878001, ETA Time: 0:32:06.088139
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 22. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.004563022404909134}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0022.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 22. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.515500009059906}},
+             'top_1': '51.6'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9151363291740418}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.843537, ETA Time: 0:31:44.949209
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 23. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.003488669438021524}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0023.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 23. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5201249718666077}},
+             'top_1': '52.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.930014549255371}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.840007, ETA Time: 0:31:23.994838
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.74s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.57it/s][INFO: generic_train_loop.py:   47]: Epoch: 24. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0028058987643037525}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0024.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 24. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5221250057220459}},
+             'top_1': '52.2'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.95258722281456}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.890217, ETA Time: 0:31:03.419596
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 25. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0023895704320498873}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0025.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 25. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5232499837875366}},
+             'top_1': '52.3'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9794586319923402}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.912410, ETA Time: 0:30:43.064377
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 26. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.002190444086279188}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0026.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 26. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5245000123977661}},
+             'top_1': '52.5'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9898207778930663}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.919050, ETA Time: 0:30:22.844403
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 27. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0019292895283017839}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0027.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 27. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5252500176429749}},
+             'top_1': '52.5'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 1.9923861670494079}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.921301, ETA Time: 0:30:02.728632
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 28. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0017174349299498967}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0028.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 28. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5271250009536743}},
+             'top_1': '52.7'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.000920270204544}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.834650, ETA Time: 0:29:42.410376
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 29. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0016291168119226182}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0029.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 29. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5268750190734863}},
+             'top_1': '52.7'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0050528333187105}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.880274, ETA Time: 0:29:22.339175
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 30. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0015692194657666342}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0030.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 30. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5267500281333923}},
+             'top_1': '52.7'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0166092267036437}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.839224, ETA Time: 0:29:02.222850
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 31. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0015100171523434775}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0031.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 31. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.527999997138977}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0211895411014558}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.831700, ETA Time: 0:28:42.167075
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 32. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014384181371756963}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0032.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 32. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.023590402364731}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.966293, ETA Time: 0:28:22.562142
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 33. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014801876885550363}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0033.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 33. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0248301212787627}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.617332, ETA Time: 0:28:04.732016
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 34. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014395894748823984}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0034.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 34. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0269618895053862}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.888153, ETA Time: 0:27:44.930921
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 35. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014050693384238652}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0035.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 35. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0290079522132873}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.916735, ETA Time: 0:27:25.252226
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.83s/it] 43%|####2     | 3/7 [00:02<00:07,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 36. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014317168721130916}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0036.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 36. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0286743528842925}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.926960, ETA Time: 0:27:05.640003
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 37. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001434884433235441}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0037.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 37. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0293331289291383}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.868064, ETA Time: 0:26:45.931112
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 38. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013899824448994228}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0038.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 38. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5285000205039978}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.033575850248337}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.857447, ETA Time: 0:26:26.243285
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 39. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014027899929455348}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0039.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 39. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0302356481552124}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.812256, ETA Time: 0:26:06.503024
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 40. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014338110174451555}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0040.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 40. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.029972064733505}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.880566, ETA Time: 0:25:46.947491
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 41. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001396583127123969}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0041.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 41. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.029333937168121}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.846949, ETA Time: 0:25:27.359290
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 42. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0014331362077168056}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0042.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 42. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.528124988079071}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.028028192281723}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.881558, ETA Time: 0:25:07.871485
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 43. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013895535043307713}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0043.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 43. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.528249979019165}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.028540996313095}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.855915, ETA Time: 0:24:48.365362
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.74s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 44. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013694018125534058}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0044.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 44. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.528249979019165}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0307211527824403}
+[INFO: utils.py:   91]: Epoch Time: 0:00:20.988827, ETA Time: 0:24:32.621390
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 45. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001379510121686118}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0045.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 45. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0322686426639556}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.970075, ETA Time: 0:24:13.234865
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 46. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013655578451497214}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0046.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 46. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.030942684173584}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.803973, ETA Time: 0:23:53.595628
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 47. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013599800212042673}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0047.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 47. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0332573709487916}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.855244, ETA Time: 0:23:34.072658
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 48. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013097141470227922}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0048.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 48. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5285000205039978}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0363044884204866}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.765584, ETA Time: 0:23:14.441153
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 49. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013360210827418736}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0049.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 49. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0372991206645965}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.094032, ETA Time: 0:22:55.327608
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 50. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013810295079435622}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0050.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 50. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.033374835252762}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.276417, ETA Time: 0:22:36.473831
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 51. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013181545904704503}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0051.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 51. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5293750166893005}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.033166550397873}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.816014, ETA Time: 0:22:16.971554
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 52. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012989283672400884}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0052.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 52. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.035988699913025}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.885031, ETA Time: 0:21:57.587252
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 53. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012773780950478145}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0053.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 53. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0364192910194396}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.878739, ETA Time: 0:21:38.213718
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 54. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.00130452960729599}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0054.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 54. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5295000076293945}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0339112458229063}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.842235, ETA Time: 0:21:18.813217
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.80s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 55. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012974233499595097}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0055.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 55. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0334875094890594}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.926553, ETA Time: 0:20:59.534199
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.80s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 56. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001275520771741867}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0056.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 56. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.035893072128296}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.941144, ETA Time: 0:20:40.284704
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 57. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012822715299470083}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0057.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 57. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.527999997138977}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0365244815349577}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.818323, ETA Time: 0:20:20.908125
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:17,  2.86s/it] 43%|####2     | 3/7 [00:03<00:08,  2.03s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.44s/it]100%|##########| 7/7 [00:03<00:00,  1.03s/it]100%|##########| 7/7 [00:04<00:00,  1.52it/s][INFO: generic_train_loop.py:   47]: Epoch: 58. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013222114316054753}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0058.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 58. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.528249979019165}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0345582244396208}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.019798, ETA Time: 0:20:01.769640
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.74s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:02<00:02,  1.37s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 59. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012526586651802063}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0059.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 59. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0348894443511965}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.839752, ETA Time: 0:19:42.445977
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 60. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012603199907711574}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0060.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 60. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5295000076293945}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.03657465171814}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.865542, ETA Time: 0:19:23.164664
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 61. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012345308704035623}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0061.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 61. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.038276710987091}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.822553, ETA Time: 0:19:03.854699
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 62. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012775803250925882}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0062.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 62. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5293750166893005}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.038675839662552}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.848389, ETA Time: 0:18:44.585042
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.80s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 63. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001239623874425888}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0063.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 63. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5285000205039978}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0363286020755766}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.941102, ETA Time: 0:18:25.414114
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.83s/it] 43%|####2     | 3/7 [00:02<00:07,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 64. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001272666667188917}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0064.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 64. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.038724179029465}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.984390, ETA Time: 0:18:06.288922
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 65. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013147305165018355}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0065.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 65. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0393823940753935}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.850180, ETA Time: 0:17:47.052434
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.73s/it] 43%|####2     | 3/7 [00:02<00:07,  1.93s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.37s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 66. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.00126614049077034}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0066.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 66. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5293750166893005}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0374700307846068}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.419340, ETA Time: 0:17:28.301953
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 29%|##8       | 2/7 [00:02<00:09,  1.99s/it] 57%|#####7    | 4/7 [00:03<00:04,  1.41s/it] 86%|########5 | 6/7 [00:03<00:01,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.52it/s][INFO: generic_train_loop.py:   47]: Epoch: 67. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012657690261091506}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0067.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 67. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0364007511138915}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.924285, ETA Time: 0:17:09.132507
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 68. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012598500720092229}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0068.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 68. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.035733208656311}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.911938, ETA Time: 0:16:49.960648
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 69. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012411810457706451}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0069.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 69. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.036376486301422}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.913252, ETA Time: 0:16:30.797313
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 70. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012691132724285126}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0070.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 70. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0369543716907503}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.882776, ETA Time: 0:16:11.618919
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 71. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001265971256153924}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0071.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 71. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0368947043418886}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.874337, ETA Time: 0:15:52.442910
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 72. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012246827994074141}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0072.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 72. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5296249985694885}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0373532712459563}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.856779, ETA Time: 0:15:33.263331
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 73. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012542717158794403}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0073.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 73. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.036723277568817}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.843487, ETA Time: 0:15:14.083856
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 74. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012644566595554352}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0074.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 74. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.037405598402023}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.857452, ETA Time: 0:14:54.922331
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 75. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012435077556541988}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0075.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 75. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0380179469585418}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.951931, ETA Time: 0:14:35.826863
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 76. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001279086938926152}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0076.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 76. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5296249985694885}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0402872421741485}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.930866, ETA Time: 0:14:16.722698
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.83s/it] 43%|####2     | 3/7 [00:02<00:07,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 77. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012298519057886942}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0077.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 77. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5296249985694885}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0389645764827726}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.960819, ETA Time: 0:13:57.640151
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 78. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012797181095395768}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0078.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 78. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.039114247083664}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.952014, ETA Time: 0:13:38.555871
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 79. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012818521686962672}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0079.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 79. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5293750166893005}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0370236625671385}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.938409, ETA Time: 0:13:19.467707
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 80. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012360364198684692}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0080.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 80. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0396226716041563}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.906613, ETA Time: 0:13:00.366992
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 81. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001277875155210495}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0081.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 81. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.038548647403717}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.926879, ETA Time: 0:12:41.281077
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.75s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 82. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001243526382105691}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0082.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 82. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.035966933965683}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.871133, ETA Time: 0:12:22.172527
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 83. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012258089014462062}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0083.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 83. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0388367104530336}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.392107, ETA Time: 0:12:03.308216
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 84. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012370087206363678}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0084.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 84. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5283750295639038}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.041637666940689}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.664500, ETA Time: 0:11:44.551322
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 85. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012845636478492192}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0085.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 85. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5293750166893005}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.037107918262482}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.938763, ETA Time: 0:11:25.465701
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 86. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012791428182806288}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0086.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 86. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0386238560676575}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.930773, ETA Time: 0:11:06.380244
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 87. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013103501072951726}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0087.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 87. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.037537400484085}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.861728, ETA Time: 0:10:47.271359
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 88. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012287417692797525}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0088.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 88. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0373677775859833}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.997918, ETA Time: 0:10:28.219164
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 89. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012531812701906478}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0089.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 89. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5283750295639038}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0378331305980684}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.906345, ETA Time: 0:10:09.135262
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 90. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012457056769302913}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0090.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 90. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5285000205039978}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0340043094158173}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.907715, ETA Time: 0:09:50.055778
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 91. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012253730424812862}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0091.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 91. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0368648736476898}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.967805, ETA Time: 0:09:30.999879
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 92. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012655151741845267}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0092.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 92. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.038941116571426}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.901000, ETA Time: 0:09:11.924838
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.74s/it] 43%|####2     | 3/7 [00:02<00:07,  1.94s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.02it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 93. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012140939278262003}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0093.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 93. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5299999713897705}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.039576498746872}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.927339, ETA Time: 0:08:52.861469
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.80s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 94. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.00121583097747394}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0094.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 94. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5299999713897705}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.037503720521927}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.902770, ETA Time: 0:08:33.793937
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.38s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 95. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012391848223549978}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0095.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 95. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0356722676754}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.794584, ETA Time: 0:08:14.700265
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.80s/it] 43%|####2     | 3/7 [00:02<00:07,  1.98s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 96. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012308587985379355}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0096.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 96. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0375365676879884}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.981060, ETA Time: 0:07:55.661385
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 97. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001268374068396432}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0097.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 97. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5283750295639038}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.035862841844559}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.931230, ETA Time: 0:07:36.611369
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 98. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001214121069226946}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0098.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 98. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.528124988079071}},
+             'top_1': '52.8'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0356563296318053}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.973878, ETA Time: 0:07:17.573786
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 99. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001220245978661946}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0099.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 99. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0401827020645142}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.982388, ETA Time: 0:06:58.539382
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 100. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001276691577264241}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0100.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 100. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.039253131389618}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.955828, ETA Time: 0:06:39.500439
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:17,  2.86s/it] 43%|####2     | 3/7 [00:02<00:08,  2.02s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.43s/it]100%|##########| 7/7 [00:03<00:00,  1.02s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 101. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0011961939079420908}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0101.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 101. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0418678328990936}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.090968, ETA Time: 0:06:20.489904
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:17,  2.88s/it] 43%|####2     | 3/7 [00:03<00:08,  2.04s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.44s/it]100%|##########| 7/7 [00:03<00:00,  1.03s/it]100%|##########| 7/7 [00:04<00:00,  1.51it/s][INFO: generic_train_loop.py:   47]: Epoch: 102. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001274988055229187}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0102.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 102. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0400418055057528}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.834092, ETA Time: 0:06:01.429941
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00s/it]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 103. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012713676052434103}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0103.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 103. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.039309784889221}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.876725, ETA Time: 0:05:42.381815
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 104. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012103111616202763}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0104.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 104. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0407052092552185}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.894055, ETA Time: 0:05:23.339818
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:17,  2.87s/it] 43%|####2     | 3/7 [00:02<00:08,  2.02s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.44s/it]100%|##########| 7/7 [00:03<00:00,  1.02s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 105. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012644949768270766}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0105.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 105. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0373536891937256}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.914963, ETA Time: 0:05:04.303825
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 106. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001319119440657752}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0106.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 106. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.036755024909973}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.934647, ETA Time: 0:04:45.272900
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.83s/it] 43%|####2     | 3/7 [00:02<00:08,  2.00s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.42s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.53it/s][INFO: generic_train_loop.py:   47]: Epoch: 107. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012120998331478664}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0107.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 107. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0377677924633026}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.911474, ETA Time: 0:04:26.240744
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 108. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012137990977082933}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0108.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 108. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5289999842643738}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0369025626182555}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.992765, ETA Time: 0:04:07.220607
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.77s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.56it/s][INFO: generic_train_loop.py:   47]: Epoch: 109. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012802226202828543}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0109.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 109. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5292500257492065}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0372947516441346}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.433419, ETA Time: 0:03:48.249485
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 110. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012798495590686798}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0110.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 110. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5291249752044678}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.03594740319252}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.978640, ETA Time: 0:03:29.224479
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.95s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 111. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001263253390789032}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0111.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 111. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0371506752967834}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.960153, ETA Time: 0:03:10.198644
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 112. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012357575552804129}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0112.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 112. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0374654650688173}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.980817, ETA Time: 0:02:51.175642
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 113. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012707327093396867}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0113.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 113. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0372430391311647}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.988272, ETA Time: 0:02:32.153914
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.79s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 114. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0013012162276676723}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0114.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 114. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.039041534900665}
+[INFO: utils.py:   91]: Epoch Time: 0:00:19.023088, ETA Time: 0:02:13.134911
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:17,  2.87s/it] 43%|####2     | 3/7 [00:02<00:08,  2.03s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.44s/it]100%|##########| 7/7 [00:03<00:00,  1.02s/it]100%|##########| 7/7 [00:04<00:00,  1.52it/s][INFO: generic_train_loop.py:   47]: Epoch: 115. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012220447616917746}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0115.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 115. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5286250114440918}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0399052426815034}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.978431, ETA Time: 0:01:54.113507
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 116. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012182391115597316}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0116.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 116. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0407570748329165}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.977430, ETA Time: 0:01:35.092801
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.82s/it] 43%|####2     | 3/7 [00:02<00:07,  1.99s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.41s/it]100%|##########| 7/7 [00:03<00:00,  1.01s/it]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 117. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.001259759600673403}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0117.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 117. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5288749933242798}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0398738462924957}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.990642, ETA Time: 0:01:16.073286
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.78s/it] 43%|####2     | 3/7 [00:02<00:07,  1.97s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.40s/it]100%|##########| 7/7 [00:03<00:00,  1.00it/s]100%|##########| 7/7 [00:04<00:00,  1.54it/s][INFO: generic_train_loop.py:   47]: Epoch: 118. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012809431978634425}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0118.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 118. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5296249985694885}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0419864540100097}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.975905, ETA Time: 0:00:57.053886
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.81s/it] 29%|##8       | 2/7 [00:02<00:10,  2.01s/it] 57%|#####7    | 4/7 [00:03<00:04,  1.42s/it] 86%|########5 | 6/7 [00:03<00:01,  1.02s/it]100%|##########| 7/7 [00:04<00:00,  1.51it/s][INFO: generic_train_loop.py:   47]: Epoch: 119. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012513702469212668}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0119.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 119. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5287500023841858}},
+             'top_1': '52.9'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0388481233119964}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.965475, ETA Time: 0:00:38.035042
+  0%|          | 0/7 [00:00<?, ?it/s] 14%|#4        | 1/7 [00:02<00:16,  2.76s/it] 43%|####2     | 3/7 [00:02<00:07,  1.96s/it] 71%|#######1  | 5/7 [00:03<00:02,  1.39s/it]100%|##########| 7/7 [00:03<00:00,  1.01it/s]100%|##########| 7/7 [00:04<00:00,  1.55it/s][INFO: generic_train_loop.py:   47]: Epoch: 120. Train Stats
+[INFO: generic_train_loop.py:   49]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: {'sample_count': tensor([896.]), 'val': {'top_1': 1.0}},
+             'top_1': '100.0'}}
+[INFO: generic_train_loop.py:   49]: {'name': 'loss', 'value': 0.0012303883475916727}
+[INFO: checkpoint.py:   79]: Saved checkpoint: unsupervised_stl10_jigsaw_rot_120/eval/model_epoch_0120.pyth
+
+[INFO: generic_eval_loop.py:   35]: Epoch: 120. Validation Stats
+[INFO: generic_eval_loop.py:   37]: { 'name': 'accuracylist',
+  'num_list': 1,
+  'value': { 0: { 'sample_count': tensor([8000.]),
+                  'val': {'top_1': 0.5296249985694885}},
+             'top_1': '53.0'}}
+[INFO: generic_eval_loop.py:   37]: {'name': 'loss', 'value': 2.0393638179302216}
+[INFO: utils.py:   91]: Epoch Time: 0:00:18.983192, ETA Time: 0:00:19.017235
