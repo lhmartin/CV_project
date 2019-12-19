@@ -1,4 +1,4 @@
-IMAGENET_FOLD=../sslime/extra_scripts/data
+IMAGENET_FOLD=../data
 
 GPU=${1} # gpu used
 CHECKPOINTS_FOLD=${2} #path_to_output_folder

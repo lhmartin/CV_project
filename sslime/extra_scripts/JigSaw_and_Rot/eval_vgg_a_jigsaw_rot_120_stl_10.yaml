@@ -34,8 +34,8 @@ MODEL:
       ["eval_mlp", {"in_channels": 256, "dims": [4096, 10]}]
     ]
     APPLY_BATCHNORM: True
-  FEATURE_EVAL_MODE: False
-  EVAL_FEATURES: ["pool1", "pool2", "pool3", "pool4", "pool5"]
+  FEATURE_EVAL_MODE: True
+  EVAL_FEATURES: []
 
 TRAINER:
   TRAIN_LOOP: "generic_train_loop"

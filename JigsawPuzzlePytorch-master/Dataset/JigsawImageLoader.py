@@ -48,10 +48,6 @@ class DataLoader(data.Dataset):
         orig_img = img
         
         if(self.rot == 1):
-            #print(self.permutations[order])
-            #print("ROTATO POTATO")
-            #print("Rotation num = ", self.permutations[order][9])
-            #print("ANGLE = ", self.angles[int(self.permutations[order][9])])
             img = TF.rotate(img, self.angles[int(self.permutations[order][9])])
         
             
@@ -74,14 +70,7 @@ class DataLoader(data.Dataset):
             tile = norm(tile)
             tiles[n] = tile
             orig_tiles[n] = norm(orig_tile)
-        
-        #print(tiles)
-
-        # NEED TO SAMPLE THIS BEFORE ROTATION TO DETERMINE THE ROTATION
-        # MAYBE KEEP THE PERMUTATIONS IN TWO 
-        # ie: self.per[order]["ROT"] has the angle
-        # self.per[order]["PUZ"] has the puzzle pieces
-        # Which means using the same code is possible 
+       
         
         data = [tiles[int(self.permutations[order][t])] for t in range(9)]
         data = torch.stack(data, 0)

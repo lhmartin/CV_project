@@ -18,7 +18,7 @@ from sslime.data.ssl_transforms.basic_transforms_wrapper import (
     TorchVisionTransformsWrapper,
 )
 
-TRANSFORMS = {"ssl_rotate": SSL_IMG_ROTATE, "JigSawTransform16" : JIG_SAW_TRANS_16, "JigSawTransform_40" : JIG_SAW_TRANS_40, "JigSawTransform_80" : JIG_SAW_TRANS_80, "JigSawTransform_120" : JIG_SAW_TRANS_120}
+TRANSFORMS = {"ssl_rotate": SSL_IMG_ROTATE, "JigSawTransform_16" : JIG_SAW_TRANS_16, "JigSawTransform_40" : JIG_SAW_TRANS_40, "JigSawTransform_80" : JIG_SAW_TRANS_80, "JigSawTransform_120" : JIG_SAW_TRANS_120}
 
 
 def get_transform(transforms_list):

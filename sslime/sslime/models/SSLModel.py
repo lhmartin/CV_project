@@ -18,7 +18,7 @@ class BaseImageSSLModel(nn.Module):
     def __init__(self):
         super(BaseImageSSLModel, self).__init__()
         if cfg.MODEL.FEATURE_EVAL_MODE:
-            self.trunk = FeatureExtractorModel()
+            self.trunk = TRUNKS[cfg.MODEL.TRUNK.TYPE]()
         else:
             self.trunk = TRUNKS[cfg.MODEL.TRUNK.TYPE]()
         self.clf_heads = nn.ModuleList()
